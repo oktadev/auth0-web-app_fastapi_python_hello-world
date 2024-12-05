@@ -1,0 +1,11 @@
+{% macro code_snippet(title='', code={}) %}
+
+<div class="code-snippet">
+  <span class="code-snippet__title">{{ title }}</span>
+  <div class="code-snippet__container">
+    <div class="code-snippet__wrapper">
+      <pre class="code-snippet__body">{{ code | to_pretty_json }}</pre>
+    </div>
+  </div>
+</div>
+{% endmacro %}

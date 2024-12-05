@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "code_snippet.html" import code_snippet %}
+
+{% block content %}
+<div class="content-layout">
+  <h1 id="page-title" class="content__title">Protected Page</h1>
+  <div class="content__body">
+    <p id="page-description">
+      <span>This page retrieves a <strong>protected message</strong>.</span>
+      <br />
+      <span><strong>Only authenticated users should access this page.</strong></span>
+    </p>
+    {{ code_snippet(title="Protected Message", code=message) }}
+  </div>
+</div>
+{% endblock %}

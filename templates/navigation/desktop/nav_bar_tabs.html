@@ -1,0 +1,15 @@
+{% macro tab(label='', path='') %}
+<a
+  href="{{ path }}"
+  class="nav-bar__tab {% if request.url == path %}nav-bar__tab--active{% endif %}"
+>
+  {{ label }}
+</a>
+{% endmacro %}
+
+<div class="nav-bar__tabs">
+  {{ tab(label="Profile", path=url_for('profile')) }}
+  {{ tab(label="Public", path=url_for('public')) }}
+  {{ tab(label="Protected", path=url_for('protected')) }}
+  {{ tab(label="Admin", path=url_for('admin')) }}
+</div>

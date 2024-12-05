@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "hero_banner.html" %}
+
+<div class="auth0-features">
+  <h2 class="auth0-features__title">Explore Auth0 Features</h2>
+  <div class="auth0-features__grid">
+    {% for feature in features %}
+        {% include "feature.html" %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
