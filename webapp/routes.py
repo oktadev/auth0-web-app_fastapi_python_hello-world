@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Depends, Request
 
+from auth.dependencies import protected_endpoint
 from config import templates
 from services.message_service import MessageService
 
@@ -52,25 +53,16 @@ def home(request: Request):
     )
 
 
-@webapp_router.get("/profile")
+@webapp_router.get("/profile", dependencies=[Depends(protected_endpoint)])
 def profile(request: Request):
     """
     Profile endpoint, should only be accessible after login
     """
-    user_info = {
-        "nickname": "Customer",
-        "name": "One Customer",
-        "picture": "https://cdn.auth0.com/blog/hello-auth0/auth0-user.png",
-        "updated_at": "2021-05-04T21:33:09.415Z",
-        "email": "customer@example.com",
-        "email_verified": False,
-        "sub": "auth0|12345678901234567890"
-    }
     return templates.TemplateResponse(
         "profile.html",
         {
             "request": request,
-            "userinfo": user_info
+            "userinfo": request.session['userinfo']
         }
     )
 
@@ -89,7 +81,7 @@ def public(request: Request):
     )
 
 
-@webapp_router.get("/protected")
+@webapp_router.get("/protected", dependencies=[Depends(protected_endpoint)])
 def protected(request: Request):
     """
     Protected endpoint, should only be accessible after login
@@ -103,7 +95,7 @@ def protected(request: Request):
     )
 
 
-@webapp_router.get("/admin")
+@webapp_router.get("/admin", dependencies=[Depends(protected_endpoint)])
 def admin(request: Request):
     """
     Admin endpoint, should only be accessible after login if the user has the admin permissions
