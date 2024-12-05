@@ -1,0 +1,8 @@
+<div class="nav-bar__buttons">
+    {% if request.session %}
+        <a href="{{ url_for('logout') }}" class="button__logout">Log Out</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" class="button__login" >Log In</a>
+        <a href="{{ url_for('signup') }}" class="button__sign-up" >Sign Up</a>
+    {% endif %}
+</div>

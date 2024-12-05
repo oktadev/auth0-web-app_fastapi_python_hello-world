@@ -10,6 +10,8 @@
 <div class="mobile-nav-bar__tabs">
   {{ tab(label="Profile", path=url_for('profile')) }}
   {{ tab(label="Public", path=url_for('public')) }}
-  {{ tab(label="Protected", path=url_for('protected')) }}
-  {{ tab(label="Admin", path=url_for('admin')) }}
+  {% if request.session %}
+    {{ tab(label="Protected", path=url_for('protected')) }}
+    {{ tab(label="Admin", path=url_for('admin')) }}
+  {% endif %}
 </div>

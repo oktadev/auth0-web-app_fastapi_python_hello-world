@@ -3,6 +3,7 @@ import configparser
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.middleware.sessions import SessionMiddleware
 
 from utils import to_pretty_json
 
@@ -14,6 +15,9 @@ def load_config():
     config = configparser.ConfigParser()
     config.read(".config")
     return config
+
+
+config = load_config()
 
 
 def create_templates():
@@ -28,6 +32,8 @@ templates = create_templates()
 def create_app():
     app = FastAPI()
     app.mount("/static", StaticFiles(directory="static"), name="static")
+    # You need this to save temporary code & state in session
+    app.add_middleware(SessionMiddleware, secret_key=config['WEBAPP']['SESSION_SECRET'])
     return app
 
 app = create_app()
