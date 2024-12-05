@@ -86,11 +86,12 @@ def protected(request: Request):
     """
     Protected endpoint, should only be accessible after login
     """
+    access_token = request.session['access_token']
     return templates.TemplateResponse(
         "protected.html",
         {
             "request": request,
-            "message": MessageService().protected_message()
+            "message": MessageService().protected_message(access_token)
         }
     )
 
@@ -100,10 +101,11 @@ def admin(request: Request):
     """
     Admin endpoint, should only be accessible after login if the user has the admin permissions
     """
+    access_token = request.session['access_token']
     return templates.TemplateResponse(
         "admin.html",
         {
             "request": request,
-            "message": MessageService().admin_message()
+            "message": MessageService().admin_message(access_token)
         }
     )
